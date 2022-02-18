@@ -6,7 +6,7 @@ import React from "react";
 function App() {
   return (
     <div className="App">
-      {/* <h3>iLoveHue Clone</h3> */}
+      <h3>iLuvHue (a clone)</h3>
       <Grid width={6} height={8} />
     </div>
   );
