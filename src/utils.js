@@ -1,8 +1,8 @@
-export function rgb() {
+const rgb = () => {
   return Math.floor(Math.random() * 256);
-}
+};
 
-export function calculateHue(block, corners, dimensions) {
+const calculateHue = (block, corners, dimensions) => {
   let [x, y] = block;
   let { topLeft, topRight, bottomLeft, bottomRight } = corners;
   let { height, width } = dimensions;
@@ -15,4 +15,6 @@ export function calculateHue(block, corners, dimensions) {
   };
 
   return [0, 1, 2].map((i) => calcComponent(i));
-}
+};
+
+export { rgb, calculateHue };

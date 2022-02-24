@@ -1,34 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Block from "./Block.js";
-import { rgb, calculateHue } from "./utils.js";
+import AppContext from "./AppContext.js";
 
 export default function Grid(dimensions) {
-  const [topLeft] = useState([rgb(), rgb(), rgb()]);
-  const [topRight] = useState([rgb(), rgb(), rgb()]);
-  const [bottomLeft] = useState([rgb(), rgb(), rgb()]);
-  const [bottomRight] = useState([rgb(), rgb(), rgb()]);
+  const { state } = useContext(AppContext);
 
-  let corners = { topLeft, topRight, bottomLeft, bottomRight };
-
-  const [blocks] = useState(() => {
-    let blocks = [];
-
-    [...Array(dimensions.height).keys()].forEach((y) => {
-      [...Array(dimensions.width).keys()].forEach((x) => {
-        blocks.push({
-          location: [x, y],
-          colour: calculateHue([x, y], corners, dimensions),
-        });
-      });
-    });
-
-    return blocks;
-  });
+  const style = {
+    position: "relative",
+    margin: "10px auto",
+    height: state.dimensions.height * 50,
+    width: state.dimensions.width * 40,
+  };
 
   return (
-    <div>
-      {blocks.map((block, i) => (
-        <Block key={i} block={block} />
+    <div style={style}>
+      {state.blocks.map((block, i) => (
+        <Block key={block.id} block={block} />
       ))}
     </div>
   );

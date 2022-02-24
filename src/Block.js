@@ -1,37 +1,44 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import "./Block.css";
+import AppContext from "./AppContext.js";
 
 export default function Block({ block }) {
+  const { state, dispatch } = useContext(AppContext);
   const [selected, setSelected] = useState(false);
 
   let { location, colour } = block;
   let blockWidth = 40;
+  let blockHeight = 50;
 
   let style = {
-    height: "50px",
-    width: "40px",
     backgroundColor: "rgb(" + colour + ")",
-    // boxShadow: "inset 0px 0px 0px 1px black",
-    boxSizing: "border-box",
-    // display: "inline",
-    position: "absolute",
-    left: location[0] * blockWidth,
-    top: location[1] * blockWidth,
+    left: location.x * blockWidth,
+    top: location.y * blockHeight,
   };
-
-  if (selected) style = { ...style, boxShadow: "inset 0px 0px 0px 1px black" };
 
   let handleClick = (e) => {
-    console.log("You clicked", e.target);
-    setSelected(true);
+    if (!state.selected) {
+      dispatch({ type: "SELECT", block: block.id });
+    } else {
+      dispatch({ type: "SWAP", block: block.id });
+    }
   };
 
-  return (
-    <div className="block" style={style} onClick={handleClick}>
-      {/* <div style={{ fontSize: "10pt" }}>
-        [{location[0]},{location[1]}]
-      </div>
+  useEffect(() => {
+    setSelected(state.selected === block.id);
+  }, [state.selected, block.id]);
 
-      {colour.map((component, i) => (
+  return (
+    <div
+      className={`block ${selected && "selected"}`}
+      style={style}
+      onClick={handleClick}
+    >
+      {/* <div>{block.id}</div>
+      <div style={{ fontSize: "10pt" }}>
+        [{location.x},{location.y}]
+      </div> */}
+      {/* {colour.map((component, i) => (
         <div key={i} style={{ fontSize: "3pt" }}>
           {component}
         </div>
