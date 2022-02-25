@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Block from "./Block.js";
 import AppContext from "./AppContext.js";
 
 export default function Grid(dimensions) {
-  const { state } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
+
+  useEffect(() => {
+    setTimeout(() => dispatch({ type: "SHUFFLE" }), 2000);
+  }, [dispatch]);
 
   const style = {
     position: "relative",

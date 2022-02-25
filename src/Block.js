@@ -34,8 +34,8 @@ export default function Block({ block }) {
       style={style}
       onClick={handleClick}
     >
-      {/* <div>{block.id}</div>
-      <div style={{ fontSize: "10pt" }}>
+      {/* <div>{block.id}</div> */}
+      {/* <div style={{ fontSize: "10pt" }}>
         [{location.x},{location.y}]
       </div> */}
       {/* {colour.map((component, i) => (

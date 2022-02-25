@@ -1,4 +1,4 @@
-import { calculateHue, rgb } from "./utils.js";
+import { calculateHue, rgb, shuffle } from "./utils.js";
 
 const initialState = {
   dimensions: { width: 5, height: 8 },
@@ -30,24 +30,32 @@ const init = (state) => {
 };
 
 const reducer = (state, action) => {
+  let { blocks } = state;
   switch (action.type) {
+    case "SHUFFLE":
+      blocks = shuffle(blocks);
+      let { height, width } = state.dimensions;
+      let nextBlock = 0;
+      [...Array(height).keys()].forEach((y) => {
+        [...Array(width).keys()].forEach((x) => {
+          blocks[nextBlock].location = { x, y };
+          nextBlock++;
+        });
+      });
+      return { ...state, blocks };
     case "SELECT":
       return { ...state, selected: action.block };
     case "SWAP":
-      let { blocks } = state;
-
       let idA = blocks.indexOf(blocks.find((b) => b.id === state.selected));
       let idB = blocks.indexOf(blocks.find((b) => b.id === action.block));
-
-      // console.log(
-      //   `SWAP ${JSON.stringify(blocks[idA])} <> ${JSON.stringify(blocks[idB])}`
-      // );
 
       [blocks[idA].location, blocks[idB].location] = [
         blocks[idB].location,
         blocks[idA].location,
       ];
+
       return { ...state, blocks, selected: null };
+
     default:
       return state;
   }
