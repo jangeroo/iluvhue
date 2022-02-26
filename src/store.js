@@ -4,6 +4,8 @@ const initialState = {
   dimensions: { width: 5, height: 8 },
   blocks: [],
   selected: null,
+  started: false,
+  won: false,
 };
 
 const init = (state) => {
@@ -21,6 +23,7 @@ const init = (state) => {
       blocks.push({
         id: blocks.length + 1,
         location: { x, y },
+        home: { x, y },
         colour: calculateHue([x, y], corners, state.dimensions),
       });
     });
@@ -42,7 +45,7 @@ const reducer = (state, action) => {
           nextBlock++;
         });
       });
-      return { ...state, blocks };
+      return { ...state, blocks, started: true };
     case "SELECT":
       return { ...state, selected: action.block };
     case "SWAP":
@@ -55,7 +58,8 @@ const reducer = (state, action) => {
       ];
 
       return { ...state, blocks, selected: null };
-
+    case "WIN":
+      return { ...state, won: true };
     default:
       return state;
   }

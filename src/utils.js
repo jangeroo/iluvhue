@@ -31,4 +31,12 @@ const shuffle = (array) => {
   //   .map(({ value }) => value);
 };
 
-export { rgb, calculateHue, shuffle };
+const calculateWinner = (state) => {
+  let incorrect = state.blocks.filter((block) => {
+    let { location, home } = block;
+    return location.x !== home.x || location.y !== home.y;
+  });
+  return state.started && incorrect.length == 0;
+};
+
+export { rgb, calculateHue, shuffle, calculateWinner };

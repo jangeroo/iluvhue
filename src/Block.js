@@ -17,6 +17,8 @@ export default function Block({ block }) {
   };
 
   let handleClick = (e) => {
+    if (state.won) return;
+
     if (!state.selected) {
       dispatch({ type: "SELECT", block: block.id });
     } else {
