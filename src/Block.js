@@ -36,6 +36,7 @@ export default function Block({ block }) {
       style={style}
       onClick={state.started ? handleClick : null}
     >
+      {block.isPinned && <Pin />}
       {/* <div>{block.id}</div> */}
       {/* <div style={{ fontSize: "10pt" }}>
         [{location.x},{location.y}]
@@ -47,4 +48,8 @@ export default function Block({ block }) {
       ))} */}
     </div>
   );
+}
+
+function Pin() {
+  return <div className="pin" />;
 }

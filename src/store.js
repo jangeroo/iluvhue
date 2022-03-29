@@ -24,9 +24,24 @@ const init = (state) => {
         id: blocks.length + 1,
         location: { x, y },
         home: { x, y },
+        isPinned: false,
         colour: calculateHue([x, y], corners, state.dimensions),
       });
     });
+  });
+
+  const pins = [
+    { x: 0, y: 0 },
+    { x: width - 1, y: 0 },
+    { x: 0, y: height - 1 },
+    { x: width - 1, y: height - 1 },
+  ];
+
+  pins.forEach((pin) => {
+    const block = blocks.find(
+      (block) => block.home.x == pin.x && block.home.y == pin.y
+    );
+    block.isPinned = true;
   });
 
   return { ...state, blocks };

@@ -18,10 +18,13 @@ const calculateHue = (block, corners, dimensions) => {
 };
 
 const shuffle = (array) => {
+  console.log({ shuffling: array });
   let shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    if (!shuffled[i].isPinned && !shuffled[j].isPinned) {
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
   }
   return shuffled;
   // ALTERNATIVE
