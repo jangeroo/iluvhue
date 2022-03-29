@@ -5,9 +5,10 @@ export default function Win() {
     position: "absolute",
     fontWeight: "bold",
     color: "blue",
-    textShadow: "0px 0px 20px white" + ",0px 0px 20px white".repeat(9),
+    borderRadius: 50,
+    backgroundColor: "white",
+    boxShadow: "0px 0px 4px 5px white",
     zIndex: 2,
-    // textAlign: "center",
   };
 
   return <div style={winStyle}>YOU WIN!!!</div>;

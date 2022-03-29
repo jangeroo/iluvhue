@@ -36,7 +36,7 @@ const calculateWinner = (state) => {
     let { location, home } = block;
     return location.x !== home.x || location.y !== home.y;
   });
-  return state.started && incorrect.length == 0;
+  return state.started && incorrect.length === 0;
 };
 
 export { rgb, calculateHue, shuffle, calculateWinner };

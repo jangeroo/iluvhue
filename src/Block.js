@@ -4,7 +4,7 @@ import AppContext from "./AppContext.js";
 
 export default function Block({ block }) {
   const { state, dispatch } = useContext(AppContext);
-  const [selected, setSelected] = useState(false);
+  const [selectedBlock, setSelectedBlock] = useState(false);
 
   let { location, colour } = block;
   let blockWidth = 40;
@@ -19,7 +19,7 @@ export default function Block({ block }) {
   let handleClick = (e) => {
     if (state.won) return;
 
-    if (!state.selected) {
+    if (!state.selectedBlock) {
       dispatch({ type: "SELECT", block: block.id });
     } else {
       dispatch({ type: "SWAP", block: block.id });
@@ -27,14 +27,14 @@ export default function Block({ block }) {
   };
 
   useEffect(() => {
-    setSelected(state.selected === block.id);
-  }, [state.selected, block.id]);
+    setSelectedBlock(state.selectedBlock === block.id);
+  }, [state.selectedBlock, block.id]);
 
   return (
     <div
-      className={`block ${selected && "selected"}`}
+      className={`block ${selectedBlock && "selected"}`}
       style={style}
-      onClick={handleClick}
+      onClick={state.started ? handleClick : null}
     >
       {/* <div>{block.id}</div> */}
       {/* <div style={{ fontSize: "10pt" }}>

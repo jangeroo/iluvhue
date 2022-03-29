@@ -3,7 +3,7 @@ import { calculateHue, rgb, shuffle } from "./utils.js";
 const initialState = {
   dimensions: { width: 5, height: 8 },
   blocks: [],
-  selected: null,
+  selectedBlock: null,
   started: false,
   won: false,
 };
@@ -47,9 +47,11 @@ const reducer = (state, action) => {
       });
       return { ...state, blocks, started: true };
     case "SELECT":
-      return { ...state, selected: action.block };
+      return { ...state, selectedBlock: action.block };
     case "SWAP":
-      let idA = blocks.indexOf(blocks.find((b) => b.id === state.selected));
+      let idA = blocks.indexOf(
+        blocks.find((b) => b.id === state.selectedBlock)
+      );
       let idB = blocks.indexOf(blocks.find((b) => b.id === action.block));
 
       [blocks[idA].location, blocks[idB].location] = [
@@ -57,7 +59,7 @@ const reducer = (state, action) => {
         blocks[idA].location,
       ];
 
-      return { ...state, blocks, selected: null };
+      return { ...state, blocks, selectedBlock: null };
     case "WIN":
       return { ...state, won: true };
     default:

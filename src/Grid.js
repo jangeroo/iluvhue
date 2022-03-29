@@ -21,18 +21,18 @@ export default function Grid(dimensions) {
     width: state.dimensions.width * 40,
   };
 
-  const won = calculateWinner(state);
+  const gameWon = calculateWinner(state);
 
   useEffect(() => {
-    if (won) {
+    if (gameWon) {
       console.log("You Win");
       dispatch({ type: "WIN" });
     }
-  }, [won, dispatch]);
+  }, [gameWon, dispatch]);
 
   return (
     <div style={style}>
-      {won && <Win />}
+      {gameWon && <Win />}
       {state.blocks.map((block, i) => (
         <Block key={block.id} block={block} />
       ))}
