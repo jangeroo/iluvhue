@@ -1,20 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import "./Block.css";
+import styled from "styled-components";
 import AppContext from "./AppContext.js";
 
 export default function Block({ block }) {
   const { state, dispatch } = useContext(AppContext);
   const [selectedBlock, setSelectedBlock] = useState(false);
-
-  let { location, colour } = block;
-  let blockWidth = 40;
-  let blockHeight = 50;
-
-  let style = {
-    backgroundColor: "rgb(" + colour + ")",
-    left: location.x * blockWidth,
-    top: location.y * blockHeight,
-  };
 
   let handleClick = (e) => {
     if (state.won) return;
@@ -31,25 +21,44 @@ export default function Block({ block }) {
   }, [state.selectedBlock, block.id]);
 
   return (
-    <div
-      className={`block ${selectedBlock && "selected"}`}
-      style={style}
+    <StyledBlock
+      className={`${selectedBlock && "selected"}`}
       onClick={state.started ? handleClick : null}
+      block={block}
     >
       {block.isPinned && <Pin />}
-      {/* <div>{block.id}</div> */}
-      {/* <div style={{ fontSize: "10pt" }}>
-        [{location.x},{location.y}]
-      </div> */}
-      {/* {colour.map((component, i) => (
-        <div key={i} style={{ fontSize: "3pt" }}>
-          {component}
-        </div>
-      ))} */}
-    </div>
+    </StyledBlock>
   );
 }
 
-function Pin() {
-  return <div className="pin" />;
-}
+const StyledBlock = styled.div`
+  position: absolute;
+  top: ${({ block }) => block.location.y * 50}px;
+  left: ${({ block }) => block.location.x * 40}px;
+  height: 50px;
+  width: 40px;
+  background-color: ${({ block }) => "rgb(" + block.colour + ")"};
+
+  &.selected {
+    box-shadow: 0px 0px 10px 0px white;
+    z-index: 1;
+  }
+`;
+
+const SelectedBlock = styled(StyledBlock)`
+  box-shadow: 0px 0px 10px 0px white;
+  z-index: 1;
+`;
+
+const Pin = styled.div`
+  height: 10px;
+  width: 10px;
+  background-color: black;
+  box-shadow: 0px 0px 1px 1px white;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;

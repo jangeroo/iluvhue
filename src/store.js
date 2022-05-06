@@ -39,7 +39,7 @@ const init = (state) => {
 
   pins.forEach((pin) => {
     const block = blocks.find(
-      (block) => block.home.x == pin.x && block.home.y == pin.y
+      (block) => block.home.x === pin.x && block.home.y === pin.y
     );
     block.isPinned = true;
   });

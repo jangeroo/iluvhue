@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from "react";
+import styled from "styled-components";
 import Block from "./Block.js";
 import Win from "./Win.js";
 import AppContext from "./AppContext.js";
+
 import { calculateWinner } from "./utils.js";
 
 export default function Grid(dimensions) {
@@ -10,16 +12,6 @@ export default function Grid(dimensions) {
   useEffect(() => {
     setTimeout(() => dispatch({ type: "SHUFFLE" }), 2000);
   }, [dispatch]);
-
-  const style = {
-    position: "relative",
-    margin: "10px auto",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: state.dimensions.height * 50,
-    width: state.dimensions.width * 40,
-  };
 
   const gameWon = calculateWinner(state);
 
@@ -31,11 +23,18 @@ export default function Grid(dimensions) {
   }, [gameWon, dispatch]);
 
   return (
-    <div style={style}>
+    <StyledGrid dimensions={state.dimensions}>
       {gameWon && <Win />}
       {state.blocks.map((block, i) => (
         <Block key={block.id} block={block} />
       ))}
-    </div>
+    </StyledGrid>
   );
 }
+
+const StyledGrid = styled.div`
+  position: relative;
+  margin: 10px auto;
+  width: ${(props) => props.dimensions.width * 40 + "px"};
+  height: ${(props) => props.dimensions.height * 50 + "px"};
+`;
