@@ -1,5 +1,9 @@
-const rgb = () => {
-  return Math.floor(Math.random() * 256);
+const rgbArray = () => {
+  return [
+    Math.floor(Math.random() * 256),
+    Math.floor(Math.random() * 256),
+    Math.floor(Math.random() * 256),
+  ];
 };
 
 const calculateHue = (block, corners, dimensions) => {
@@ -7,14 +11,14 @@ const calculateHue = (block, corners, dimensions) => {
   let { topLeft, topRight, bottomLeft, bottomRight } = corners;
   let { height, width } = dimensions;
 
-  let calcComponent = (i) => {
+  let calculateComponent = (i) => {
     let start = topLeft[i] + y * ((bottomLeft[i] - topLeft[i]) / (height - 1));
     let end = topRight[i] + y * ((bottomRight[i] - topRight[i]) / (height - 1));
     let component = start + (x * (end - start)) / (width - 1);
     return Math.round(component);
   };
 
-  return [0, 1, 2].map((i) => calcComponent(i));
+  return [0, 1, 2].map((i) => calculateComponent(i));
 };
 
 const shuffle = (array) => {
@@ -42,4 +46,4 @@ const calculateWinner = (state) => {
   return state.started && incorrect.length === 0;
 };
 
-export { rgb, calculateHue, shuffle, calculateWinner };
+export { rgbArray, calculateHue, shuffle, calculateWinner };

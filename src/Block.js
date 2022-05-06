@@ -45,11 +45,6 @@ const StyledBlock = styled.div`
   }
 `;
 
-const SelectedBlock = styled(StyledBlock)`
-  box-shadow: 0px 0px 10px 0px white;
-  z-index: 1;
-`;
-
 const Pin = styled.div`
   height: 10px;
   width: 10px;

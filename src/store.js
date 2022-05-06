@@ -1,4 +1,4 @@
-import { calculateHue, rgb, shuffle } from "./utils.js";
+import { calculateHue, rgbArray, shuffle } from "./utils.js";
 
 const initialState = {
   dimensions: { width: 5, height: 8 },
@@ -9,10 +9,10 @@ const initialState = {
 };
 
 const init = (state) => {
-  const topLeft = [rgb(), rgb(), rgb()];
-  const topRight = [rgb(), rgb(), rgb()];
-  const bottomLeft = [rgb(), rgb(), rgb()];
-  const bottomRight = [rgb(), rgb(), rgb()];
+  const topLeft = rgbArray();
+  const topRight = rgbArray();
+  const bottomLeft = rgbArray();
+  const bottomRight = rgbArray();
   const corners = { topLeft, topRight, bottomLeft, bottomRight };
 
   const { height, width } = state.dimensions;
